@@ -1,22 +1,25 @@
 <html>
 <p>Beat the computer at tennis!</p>
 <head>
+
 <style> 
     p{color:green; font-size:20px;font-family:cursive; text-indent: 280px };
-	var{color:white; font-size:200px}; /*//Can't figure out how to increase font size!*/
-/*
-	player1Score {color:white; font-size:20px};
-var.player1Score.fontSize="20px";
-var.player1Score.fontSize="20px";
-    canvasContext.fontSize="20px";
-*/
-    </style>
-    </head>
-<canvas id="gameCanvas" width="800" height="600">
-    </canvas>
-<script>
-
+	var{color:white; font-size:200px};
+</style>
     
+</head>
+
+
+<canvas id="gameCanvas" width="800" height="600"></canvas>
+
+<script>
+    
+    
+ /*//The 3 lines below increase the filltext size*/
+var c = document.getElementById("gameCanvas");
+var ctx = c.getContext("2d");
+ctx.font = "50px Verdana";
+   
 //This section defines the variables we'll use.
 var canvas;
 var canvasContext;
@@ -24,18 +27,14 @@ var ballx = 50;
 var bally = 50;
 var ballSpeedX = 10;
 var ballSpeedY = 4;
-var player1Score = 0;
-    
-var player2Score = 0;
-    
+var player1Score = 0; 
+var player2Score = 0; 
 const WINNING_SCORE = 3;
 var showingWinScreen = false;
-
 var paddle1Y= 250;
 var paddle2Y= 250;
 const PADDLE_THICKNESS = 10;
 const PADDLE_HEIGHT = 100;
-
 
 
 
@@ -60,20 +59,11 @@ function handleMouseClick(evt) {
 		showingWinScreen = false;
 	}
 }
-//I had the below but it's just a repeat.
-//function handleMouseClick(evt) {
-//	if(showingWinScreen) {
-//		player1Score=0;
-//		player2Score=0;
-//		showingWinScreen=false;
-//}
-//}
-    //I think this sets up the canvas.
+
+    //This brings up the canvas.
 window.onload = function(){
-        
         canvas = document.getElementById('gameCanvas');
         canvasContext = canvas.getContext('2d');
-        
         var framesPerSecond = 30;
         setInterval(function(){
             moveEverything();
@@ -96,10 +86,9 @@ window.onload = function(){
 //This will reset the ball by centering it on the screen when you miss.
 
 	function ballReset() {
-		if(player1Score >= WINNING_SCORE || //means 'or else'
+		if(player1Score >= WINNING_SCORE || 
 			player2Score >= WINNING_SCORE) {
 			showingWinScreen = true;
-				
 }
 		ballSpeedX=-ballSpeedX;
 		ballx = canvas.width/2;
@@ -166,9 +155,9 @@ window.onload = function(){
 	ballSpeedY=-ballSpeedY;
 }
 }
+    
 
 //This is how you draw all the elements on the screen.
-
 function drawNet(){
 	for(var i=0; i<canvas.height; i+=40){ //jump in intervals of 40
 		colorRect(canvas.width/2-1,i,2,20,'white');
@@ -184,12 +173,13 @@ function drawEverything() {
 		canvasContext.fillStyle = 'white';
 //        canvasContext.fontSize ='60px';
 		if(player1Score >= WINNING_SCORE) {
-			canvasContext.fillText("Player 1 Wins!", canvas.width*0.25,200);
+			canvasContext.fillText("Player 1 Wins!", canvas.width/3.5,200);
+
 		}
 		else if(player2Score >= WINNING_SCORE){
-		canvasContext.fillText("Player 2 Wins!", canvas.width*0.75,200);
+		canvasContext.fillText("Player 2 Wins!", canvas.width/3.5,200);
 }
-		canvasContext.fillText("click to continue", canvas.width/2,450);
+		canvasContext.fillText("click to continue", canvas.width/4,450);
 		return;
 }	
 
@@ -216,7 +206,6 @@ function colorCircle(centerX,centerY,radius, drawColor){
 	canvasContext.beginPath();
 	canvasContext.arc(centerX,centerY,radius,0,Math.PI*2, true);
 	canvasContext.fill();
-
 }
 
    
